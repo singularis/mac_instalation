@@ -1,0 +1,63 @@
+---
+- name: Install Software
+  hosts: localhost
+  become: no
+  tasks:
+    - name: Install Software Applications
+      loop:
+        - firefox
+        - vlc
+        - libreoffice
+        - gimp
+        - grammarly
+        - visual-studio-code
+        - hyper
+        - pycharm
+        - rustrover
+        - hyper
+        - google-drive
+      vars:
+        app_name: "{{ item }}"
+      command: "brew install --cask {{ app_name }}"
+      args:
+        creates: "/usr/local/Caskroom/{{ app_name }}"
+      when: not ('/usr/local/Caskroom/{{ app_name }}' is directory)
+
+    - name: Install non casl Software Applications
+      loop:
+          - fish
+          - rust
+          - logi-options-plus
+          - google-chrome
+          - kubernetes-cli
+      vars:
+        app_name: "{{ item }}"
+      command: "brew install {{ app_name }}"
+      args:
+        creates: "/usr/local/Caskroom/{{ app_name }}"
+      when: not ('/usr/local/Caskroom/{{ app_name }}' is directory)
+
+    - name: Install Visual Studio Code extensions
+      loop:
+          - aaron-bond.better-comments
+          - anseki.vscode-color
+          - bierner.markdown-mermaid
+          - dbaeumer.vscode-eslint
+          - eamodio.gitlens
+          - Gruntfuggly.todo-tree
+          - HookyQR.beautify
+          - kddejong.vscode-cfn-lint
+          - ms-python.python
+          - ms-vsliveshare.vsliveshare
+          - naumovs.color-highlight
+          - oderwat.indent-rainbow
+          - vscode-icons-team.vscode-icons
+          - redhat.ansible
+          - ms-azuretools.vscode-docker
+          - ms-kubernetes-tools.vscode-kubernetes-tools
+          - redhat.vscode-yaml
+          - ms-vscode-remote.remote-ssh
+          - streetsidesoftware.code-spell-checker
+      vars:
+        extension: "{{ item }}"
+      command: "code --install-extension {{ extension }}"
