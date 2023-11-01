@@ -21,6 +21,8 @@
         - tor-browser
         - whatsapp
         - postman
+        - obs
+        - chrome-remote-desktop-host
       vars:
         app_name: "{{ item }}"
       command: "brew install --cask {{ app_name }}"
