@@ -12,7 +12,7 @@
         - grammarly
         - visual-studio-code
         - hyper
-        - pycharm
+        - pycharm-ce
         - rustrover
         - hyper
         - google-drive
@@ -30,6 +30,7 @@
           - logi-options-plus
           - google-chrome
           - kubernetes-cli
+          - ansible-lint
       vars:
         app_name: "{{ item }}"
       command: "brew install {{ app_name }}"

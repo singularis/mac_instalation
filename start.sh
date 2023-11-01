@@ -18,9 +18,9 @@ install_package() {
 # Check if Homebrew is installed and install it if necessary
 if ! check_command brew; then
 	export HOMEBREW_NO_INSTALL_FROM_API=1
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/yevheniiparasochka/.zprofile
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Check if Python is installed
