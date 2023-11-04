@@ -23,6 +23,7 @@
         - postman
         - obs
         - chrome-remote-desktop-host
+        - steam
       vars:
         app_name: "{{ item }}"
       command: "brew install --cask {{ app_name }}"
