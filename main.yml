@@ -39,6 +39,8 @@
         - kubernetes-cli
         - ansible-lint
         - mas
+        - rsync
+        - progress
       vars:
         app_name: "{{ item }}"
       command: "brew install {{ app_name }}"
