@@ -3,6 +3,10 @@
   hosts: localhost
   become: false
   tasks:
+    - name: Update all Homebrew packages
+      command: brew update
+    - name: Upgrade all Homebrew packages
+      command: brew upgrade
     - name: Install Software Applications
       loop:
         - firefox
@@ -24,6 +28,7 @@
         - obs
         - chrome-remote-desktop-host
         - steam
+        - sony-ps-remote-play
       vars:
         app_name: "{{ item }}"
       command: "brew install --cask {{ app_name }}"
@@ -42,12 +47,13 @@
         - mas
         - rsync
         - progress
+        - awscli
       vars:
         app_name: "{{ item }}"
       command: "brew install {{ app_name }}"
       args:
-        creates: "/usr/local/Caskroom/{{ app_name }}"
-      when: not ('/usr/local/Caskroom/{{ app_name }}' is directory)
+        creates: "/opt/homebrew/Caskroom/{{ app_name }}"
+      when: not ('/opt/homebrew/Caskroom/{{ app_name }}' is directory)
 
     - name: Install Visual Studio Code extensions
       loop:
