@@ -29,6 +29,7 @@
         - chrome-remote-desktop-host
         - steam
         - sony-ps-remote-play
+        - rectangle
       vars:
         app_name: "{{ item }}"
       command: "brew install --cask {{ app_name }}"
