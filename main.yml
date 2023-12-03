@@ -3,10 +3,12 @@
   hosts: localhost
   become: false
   tasks:
+    - name: Cleanup  Homebrew 
+      command: brew cleanup
     - name: Update all Homebrew packages
       command: brew update
     - name: Upgrade all Homebrew packages
-      command: brew upgrade
+      command: arch -arm64 brew upgrade
     - name: Install Software Applications
       loop:
         - firefox
@@ -32,7 +34,7 @@
         - rectangle
       vars:
         app_name: "{{ item }}"
-      command: "brew install --cask {{ app_name }}"
+      command: "arch -arm64 brew install --force --cask {{ app_name }}"
       args:
         creates: "/usr/local/Caskroom/{{ app_name }}"
       when: not ('/usr/local/Caskroom/{{ app_name }}' is directory)
@@ -51,7 +53,7 @@
         - awscli
       vars:
         app_name: "{{ item }}"
-      command: "brew install {{ app_name }}"
+      command: "arch -arm64 brew install --force {{ app_name }}"
       args:
         creates: "/opt/homebrew/Caskroom/{{ app_name }}"
       when: not ('/opt/homebrew/Caskroom/{{ app_name }}' is directory)
