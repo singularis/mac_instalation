@@ -3,7 +3,7 @@
   hosts: localhost
   become: false
   tasks:
-    - name: Cleanup  Homebrew 
+    - name: Cleanup  Homebrew
       command: brew cleanup
     - name: Update all Homebrew packages
       command: brew update
@@ -14,22 +14,14 @@
         - firefox
         - vlc
         - libreoffice
-        - gimp
         - grammarly
         - visual-studio-code
-        - hyper
-        - pycharm-ce
-        - rustrover
         - hyper
         - google-drive
         - telegram
         - viber
         - tor-browser
         - whatsapp
-        - postman
-        - obs
-        - chrome-remote-desktop-host
-        - steam
         - sony-ps-remote-play
         - rectangle
       vars:
@@ -42,11 +34,9 @@
     - name: Install non casl Software Applications
       loop:
         - fish
-        - rust
         - logi-options-plus
         - google-chrome
         - kubernetes-cli
-        - ansible-lint
         - mas
         - rsync
         - progress

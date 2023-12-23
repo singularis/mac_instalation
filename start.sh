@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Identify the MacBook model
+model=$(system_profiler SPHardwareDataType | grep "Model Identifier" | awk '{print $3}')
+
 # Function to check if a command is installed
 check_command() {
   command -v "$1" &> /dev/null
@@ -38,11 +41,21 @@ fi
 if ! check_command ansible; then
   brew install ansible
 fi
+# Determine which playbook to run based on the model
+if [[ "$model" == *"MacBookPro"* ]]; then
+  playbook="main.yml"
+elif [[ "$model" == *"MacBookAir"* ]]; then
+  playbook="air.yml"
+else
+  echo "Error: Unknown MacBook model."
+  exit 1
+fi
 
 # Run the Ansible playbook
-if [ -f "main.yml" ]; then
-  echo "Running Ansible playbook..."
-  ansible-playbook main.yml
+# Check if the playbook file exists and run it
+if [ -f "$playbook" ]; then
+  echo "Running Ansible playbook ($playbook)..."
+  ansible-playbook "$playbook"
   status=$?
   if [ $status -eq 0 ]; then
     echo "Ansible playbook ran successfully."
@@ -50,7 +63,7 @@ if [ -f "main.yml" ]; then
     echo "Error: Ansible playbook failed with exit code $status."
   fi
 else
-  echo "Error: main.yaml playbook file not found in the current directory."
+  echo "Error: $playbook playbook file not found in the current directory."
   status=1
 fi
 
