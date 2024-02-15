@@ -24,6 +24,7 @@
         - whatsapp
         - sony-ps-remote-play
         - rectangle
+        - keepassxc
       vars:
         app_name: "{{ item }}"
       command: "brew install --force --cask {{ app_name }}"

@@ -33,6 +33,7 @@
         - sony-ps-remote-play
         - rectangle
         - intellij-idea-ce
+        - keepassxc
       vars:
         app_name: "{{ item }}"
       command: "brew install --force --cask {{ app_name }}"
