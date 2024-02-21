@@ -16,10 +16,7 @@
         - libreoffice
         - gimp
         - grammarly
-        - visual-studio-code
         - hyper
-        - pycharm-ce
-        - rustrover
         - hyper
         - google-drive
         - telegram
@@ -32,13 +29,10 @@
         - steam
         - sony-ps-remote-play
         - rectangle
-        - intellij-idea-ce
         - keepassxc
       vars:
         app_name: "{{ item }}"
       command: "brew install --force --cask {{ app_name }}"
-      args:
-        creates: "/usr/local/Caskroom/{{ app_name }}"
       when: not ('/usr/local/Caskroom/{{ app_name }}' is directory)
 
     - name: Install non casl Software Applications
@@ -56,8 +50,6 @@
       vars:
         app_name: "{{ item }}"
       command: "brew install --force {{ app_name }}"
-      args:
-        creates: "/opt/homebrew/Caskroom/{{ app_name }}"
       when: not ('/opt/homebrew/Caskroom/{{ app_name }}' is directory)
 
     - name: Install Visual Studio Code extensions
