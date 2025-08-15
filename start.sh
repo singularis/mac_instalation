@@ -44,7 +44,7 @@ fi
 # Determine which playbook to run based on the model
 if [[ "$model" == *"MacBookPro"* ]]; then
   playbook="main.yml"
-elif [[ "$model" == *"MacBookAir"* ]]; then
+elif [[ "$model" == *"Mac16,13"* ]]; then
   playbook="air.yml"
 else
   echo "Error: Unknown MacBook model."

@@ -3,7 +3,12 @@
   hosts: localhost
   become: false
   tasks:
-    - name: Cleanup  Homebrew
+    - name: Discover Homebrew prefix
+      command: brew --prefix
+      register: brew_prefix
+      changed_when: false
+
+    - name: Cleanup Homebrew
       command: brew cleanup
     - name: Update all Homebrew packages
       command: brew update
@@ -14,62 +19,34 @@
         - firefox
         - vlc
         - libreoffice
-        - grammarly
-        - visual-studio-code
+        - grammarly-desktop
         - hyper
         - google-drive
         - telegram
-        - viber
         - tor-browser
         - whatsapp
-        - sony-ps-remote-play
-        - rectangle
         - keepassxc
+        - parsec
+        - microsoft-remote-desktop
+        - pycharm-ce
+        - android-studio
+        - lens
+        - logi-options-plus
       vars:
         app_name: "{{ item }}"
       command: "brew install --force --cask {{ app_name }}"
       args:
-        creates: "/usr/local/Caskroom/{{ app_name }}"
-      when: not ('/usr/local/Caskroom/{{ app_name }}' is directory)
+        creates: "{{ brew_prefix.stdout }}/Caskroom/{{ app_name }}"
 
-    - name: Install non casl Software Applications
+    - name: Install non cask Software Applications
       loop:
         - fish
-        - logi-options-plus
-        - google-chrome
         - kubernetes-cli
         - mas
         - rsync
         - progress
-        - awscli
       vars:
         app_name: "{{ item }}"
       command: "brew install --force {{ app_name }}"
       args:
-        creates: "/opt/homebrew/Caskroom/{{ app_name }}"
-      when: not ('/opt/homebrew/Caskroom/{{ app_name }}' is directory)
-
-    - name: Install Visual Studio Code extensions
-      loop:
-        - aaron-bond.better-comments
-        - anseki.vscode-color
-        - bierner.markdown-mermaid
-        - dbaeumer.vscode-eslint
-        - eamodio.gitlens
-        - Gruntfuggly.todo-tree
-        - HookyQR.beautify
-        - kddejong.vscode-cfn-lint
-        - ms-python.python
-        - ms-vsliveshare.vsliveshare
-        - naumovs.color-highlight
-        - oderwat.indent-rainbow
-        - vscode-icons-team.vscode-icons
-        - redhat.ansible
-        - ms-azuretools.vscode-docker
-        - ms-kubernetes-tools.vscode-kubernetes-tools
-        - redhat.vscode-yaml
-        - ms-vscode-remote.remote-ssh
-        - streetsidesoftware.code-spell-checker
-      vars:
-        extension: "{{ item }}"
-      command: "code --install-extension {{ extension }}"
+        creates: "{{ brew_prefix.stdout }}/Cellar/{{ app_name }}"
